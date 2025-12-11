@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crack Detection & Measurement System - © 2025 Pranjali Patil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===========================
+           Global Styles & Reset
+           =========================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary-color: #2563eb;
+            --secondary-color: #0f172a;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* ===========================
+           Header Styles
+           =========================== */
+        .header {
+            background: var(--card-bg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-section i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .logo-section h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===========================
+           Main Content
+           =========================== */
+        .main-content {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===========================
+           Upload Section
+           =========================== */
+        .upload-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .upload-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .upload-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .upload-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-md);
+        }
+
+        .btn-secondary:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        .file-name {
+            margin-top: var(--spacing-md);
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        /* ===========================
+           Analysis Section
+           =========================== */
+        .analysis-section {
+            position: relative;
+        }
+
+        .image-preview-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .image-preview-card h3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.25rem;
+        }
+
+        .image-container {
+            position: relative;
+            max-width: 100%;
+            margin: var(--spacing-md) auto;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: #000;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* ===========================
+           Loading Overlay
+           =========================== */
+        .loading-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            z-index: 100;
+        }
+
+        .spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===========================
+           Results Grid
+           =========================== */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .result-card .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .status-card .card-icon {
+            color: var(--primary-color);
+        }
+
+        .measurements-card .card-icon {
+            color: var(--accent-color);
+        }
+
+        .severity-card .card-icon {
+            color: var(--warning-color);
+        }
+
+        .compliance-card .card-icon {
+            color: var(--success-color);
+        }
+
+        .recommendations-card .card-icon {
+            color: var(--danger-color);
+        }
+
+        .export-card .card-icon {
+            color: var(--secondary-color);
+        }
+
+        .result-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        /* Measurement Items */
+        .measurement-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .measurement-item:last-child {
+            border-bottom: none;
+        }
+
+        .measurement-item .label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .measurement-item .value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Severity Badge */
+        .severity-badge {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: var(--spacing-md) 0;
+            text-transform: uppercase;
+        }
+
+        .severity-safe {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .severity-monitoring {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .severity-repair {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .severity-critical {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .severity-details {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Compliance Content */
+        .compliance-content {
+            line-height: 1.8;
+        }
+
+        .compliance-item {
+            padding: var(--spacing-sm);
+            margin: var(--spacing-xs) 0;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Recommendations List */
+        .recommendations-list {
+            list-style: none;
+        }
+
+        .recommendations-list li {
+            padding: var(--spacing-sm);
+            margin: var(--spacing-xs) 0;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--warning-color);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+        }
+
+        .recommendations-list li::before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Status Messages */
+        .status-message {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .status-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-error {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        /* ===========================
+           About & Legal Sections
+           =========================== */
+        .about-section,
+        .legal-section {
+            margin-top: var(--spacing-xl);
+        }
+
+        .about-card,
+        .legal-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-card h2,
+        .legal-card h3 {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        .developer-info {
+            display: grid;
+            gap: var(--spacing-sm);
+        }
+
+        .dev-detail {
+            padding: var(--spacing-sm);
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+        }
+
+        .dev-detail strong {
+            color: var(--text-primary);
+            margin-right: var(--spacing-xs);
+        }
+
+        .dev-detail a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .dev-detail a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .legal-card ul {
+            list-style: none;
+            line-height: 2;
+        }
+
+        .legal-card li {
+            padding-left: var(--spacing-md);
+            position: relative;
+        }
+
+        .legal-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* ===========================
+           Footer
+           =========================== */
+        .footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .footer p {
+            margin: var(--spacing-xs) 0;
+        }
+
+        .footer strong {
+            color: var(--accent-color);
+        }
+
+        /* ===========================
+           Responsive Design
+           =========================== */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-section h1 {
+                font-size: 1.2rem;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .legal-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===========================
+           Animations
+           =========================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <i class="fas fa-brain"></i>
+                <h1>AI-Based Crack Detection & Analysis System</h1>
+            </div>
+            <div class="header-info">
+                <span class="copyright">© 2025 - Pranjali Patil</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-card">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h2>Upload Structural Image for Analysis</h2>
+                    <p>Support: JPG, PNG, JPEG (Max 10MB)</p>
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+                    <button class="btn-primary" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-upload"></i> Select Image
+                    </button>
+                    <div id="fileName" class="file-name"></div>
+                </div>
+            </section>
+
+            <!-- Analysis Section (Hidden Initially) -->
+            <section class="analysis-section" id="analysisSection" style="display: none;">
+                
+                <!-- Image Preview -->
+                <div class="image-preview-card">
+                    <h3><i class="fas fa-image"></i> Uploaded Image</h3>
+                    <div class="image-container">
+                        <img id="uploadedImage" src="" alt="Uploaded Image">
+                        <canvas id="detectionCanvas"></canvas>
+                    </div>
+                    <button class="btn-secondary" onclick="resetSystem()">
+                        <i class="fas fa-redo"></i> Upload New Image
+                    </button>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="spinner"></div>
+                    <p>Analyzing image with AI...</p>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="results-grid" id="resultsGrid" style="display: none;">
+                    
+                    <!-- Detection Status -->
+                    <div class="result-card status-card" id="statusCard">
+                        <div class="card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Detection Status</h3>
+                        <p class="status-message" id="statusMessage">Analyzing...</p>
+                    </div>
+
+                    <!-- Measurements -->
+                    <div class="result-card measurements-card">
+                        <div class="card-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h3>Crack Measurements</h3>
+                        <div class="measurement-item">
+                            <span class="label">Crack Length:</span>
+                            <span class="value" id="crackLength">-</span>
+                        </div>
+                        <div class="measurement-item">
+                            <span class="label">Crack Width:</span>
+                            <span class="value" id="crackWidth">-</span>
+                        </div>
+                        <div class="measurement-item">
+                            <span class="label">Damage Percentage:</span>
+                            <span class="value" id="damagePercent">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Severity Classification -->
+                    <div class="result-card severity-card">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Severity Classification</h3>
+                        <div class="severity-badge" id="severityBadge">-</div>
+                        <div class="severity-details" id="severityDetails"></div>
+                    </div>
+
+                    <!-- Code Compliance -->
+                    <div class="result-card compliance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Standards Compliance</h3>
+                        <div id="complianceDetails" class="compliance-content"></div>
+                    </div>
+
+                    <!-- Repair Recommendations -->
+                    <div class="result-card recommendations-card">
+                        <div class="card-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Repair Recommendations</h3>
+                        <div id="recommendations" class="recommendations-list"></div>
+                    </div>
+
+                    <!-- Export Report -->
+                    <div class="result-card export-card">
+                        <div class="card-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Export Report</h3>
+                        <button class="btn-primary" onclick="exportReport()">
+                            <i class="fas fa-file-pdf"></i> Download PDF Report
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- About Developer -->
+            <section class="about-section">
+                <div class="about-card">
+                    <h2><i class="fas fa-user-graduate"></i> About the Developer</h2>
+                    <div class="developer-info">
+                        <div class="dev-detail">
+                            <strong>Name:</strong> Pranjali Patil
+                        </div>
+                        <div class="dev-detail">
+                            <strong>Qualification:</strong> B.Tech Final Year - Civil & Infrastructure Engineering
+                        </div>
+                        <div class="dev-detail">
+                            <strong>Email:</strong> <a href="mailto:pranjalpatil562@gmail.com">pranjalpatil562@gmail.com</a>
+                        </div>
+                        <div class="dev-detail">
+                            <strong>Phone:</strong> <a href="tel:7777028471">7777028471</a>
+                        </div>
+                        <div class="dev-detail">
+                            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pranjalipatil13" target="_blank">linkedin.com/in/pranjalipatil13</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal Section -->
+            <section class="legal-section">
+                <div class="legal-card">
+                    <h3><i class="fas fa-shield-alt"></i> Privacy Policy</h3>
+                    <ul>
+                        <li>Uploaded images are used only for analysis purposes</li>
+                        <li>Images are not stored on servers or shared without permission</li>
+                        <li>No personal data is collected except optional contact details</li>
+                        <li>All user data is kept confidential and secure</li>
+                        <li>System should not be used for illegal or harmful activities</li>
+                    </ul>
+                </div>
+                <div class="legal-card">
+                    <h3><i class="fas fa-file-contract"></i> Terms & Conditions</h3>
+                    <ul>
+                        <li>This tool provides preliminary AI-based crack assessment</li>
+                        <li>Does not replace certified structural audits by professionals</li>
+                        <li>Users must upload original or authorized images only</li>
+                        <li>Developer is not responsible for any misuse of the system</li>
+                        <li>Results should support engineering judgment, not replace it</li>
+                        <li>By using this system, you agree to these terms</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 – AI-Based Crack Detection & Measurement System</p>
+            <p>Developed by <strong>Pranjali Patil</strong> | B.Tech Civil & Infrastructure Engineering</p>
+            <p>All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script>
+        /**
+         * AI-Based Crack Detection Engine
+         * © 2025 Pranjali Patil
+         * Advanced image processing for crack detection and measurement
+         */
+
+        class CrackDetector {
+            constructor() {
+                this.pixelToMM = 0.264583; // Default conversion (96 DPI)
+                this.calibrationFactor = 1.0;
+            }
+
+            /**
+             * Main detection function
+             */
+            async detectCracks(imageElement) {
+                try {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = imageElement.width;
+                    canvas.height = imageElement.height;
+                    ctx.drawImage(imageElement, 0, 0);
+                    
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // Step 1: Check if image contains crack-like patterns
+                    const isCrackImage = await this.validateCrackImage(imageData);
+                    
+                    if (!isCrackImage) {
+                        return {
+                            success: false,
+                            message: "This is not a structural crack image. Please upload a valid crack image."
+                        };
+                    }
+                    
+                    // Step 2: Process image for crack detection
+                    const processedData = await this.preprocessImage(imageData);
+                    
+                    // Step 3: Detect crack regions
+                    const crackRegions = await this.findCrackRegions(processedData);
+                    
+                    // Step 4: Measure crack properties
+                    const measurements = await this.measureCracks(crackRegions, canvas.width, canvas.height);
+                    
+                    // Step 5: Draw detection results
+                    const annotatedCanvas = await this.drawDetections(imageElement, crackRegions);
+                    
+                    return {
+                        success: true,
+                        measurements: measurements,
+                        annotatedCanvas: annotatedCanvas,
+                        crackRegions: crackRegions
+                    };
+                    
+                } catch (error) {
+                    console.error('Detection error:', error);
+                    return {
+                        success: false,
+                        message: "Error processing image. Please try another image."
+                    };
+                }
+            }
+
+            /**
+             * Validate if image contains crack patterns
+             */
+            async validateCrackImage(imageData) {
+                const data = imageData.data;
+                const width = imageData.width;
+                const height = imageData.height;
+                
+                let darkPixelCount = 0;
+                let edgeCount = 0;
+                let totalPixels = width * height;
+                
+                // Check for dark linear features (typical of cracks)
+                for (let y = 1; y < height - 1; y++) {
+                    for (let x = 1; x < width - 1; x++) {
+                        const idx = (y * width + x) * 4;
+                        const brightness = (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
+                        
+                        if (brightness < 100) {
+                            darkPixelCount++;
+                        }
+                        
+                        // Simple edge detection
+                        const centerBrightness = brightness;
+                        const rightIdx = (y * width + (x + 1)) * 4;
+                        const rightBrightness = (data[rightIdx] + data[rightIdx + 1] + data[rightIdx + 2]) / 3;
+                        
+                        if (Math.abs(centerBrightness - rightBrightness) > 30) {
+                            edgeCount++;
+                        }
+                    }
+                }
+                
+                const darkPixelRatio = darkPixelCount / totalPixels;
+                const edgeRatio = edgeCount / totalPixels;
+                
+                // Image should have some dark linear features to be considered a crack
+                return darkPixelRatio > 0.05 && darkPixelRatio < 0.8 && edgeRatio > 0.02;
+            }
+
+            /**
+             * Preprocess image for better detection
+             */
+            async preprocessImage(imageData) {
+                const data = imageData.data;
+                const width = imageData.width;
+                const height = imageData.height;
+                
+                // Convert to grayscale and apply edge enhancement
+                const processed = new Uint8ClampedArray(width * height);
+                
+                for (let y = 0; y < height; y++) {
+                    for (let x = 0; x < width; x++) {
+                        const idx = (y * width + x) * 4;
+                        // Grayscale conversion
+                        const gray = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+                        processed[y * width + x] = gray;
+                    }
+                }
+                
+                // Apply Sobel edge detection
+                const edges = this.sobelEdgeDetection(processed, width, height);
+                
+                // Apply thresholding
+                const threshold = this.otsuThreshold(edges);
+                const binary = this.applyThreshold(edges, threshold);
+                
+                return {
+                    grayscale: processed,
+                    edges: edges,
+                    binary: binary,
+                    width: width,
+                    height: height
+                };
+            }
+
+            /**
+             * Sobel edge detection
+             */
+            sobelEdgeDetection(data, width, height) {
+                const edges = new Uint8ClampedArray(width * height);
+                
+                const sobelX = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]];
+                const sobelY = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]];
+                
+                for (let y = 1; y < height - 1; y++) {
+                    for (let x = 1; x < width - 1; x++) {
+                        let gx = 0, gy = 0;
+                        
+                        for (let ky = -1; ky <= 1; ky++) {
+                            for (let kx = -1; kx <= 1; kx++) {
+                                const pixel = data[(y + ky) * width + (x + kx)];
+                                gx += pixel * sobelX[ky + 1][kx + 1];
+                                gy += pixel * sobelY[ky + 1][kx + 1];
+                            }
+                        }
+                        
+                        const magnitude = Math.sqrt(gx * gx + gy * gy);
+                        edges[y * width + x] = Math.min(255, magnitude);
+                    }
+                }
+                
+                return edges;
+            }
+
+            /**
+             * Otsu's thresholding method
+             */
+            otsuThreshold(data) {
+                const histogram = new Array(256).fill(0);
+                
+                for (let i = 0; i < data.length; i++) {
+                    histogram[data[i]]++;
+                }
+                
+                const total = data.length;
+                let sum = 0;
+                for (let i = 0; i < 256; i++) {
+                    sum += i * histogram[i];
+                }
+                
+                let sumB = 0;
+                let wB = 0;
+                let wF = 0;
+                let maxVariance = 0;
+                let threshold = 0;
+                
+                for (let i = 0; i < 256; i++) {
+                    wB += histogram[i];
+                    if (wB === 0) continue;
+                    
+                    wF = total - wB;
+                    if (wF === 0) break;
+                    
+                    sumB += i * histogram[i];
+                    
+                    const mB = sumB / wB;
+                    const mF = (sum - sumB) / wF;
+                    
+                    const variance = wB * wF * (mB - mF) * (mB - mF);
+                    
+                    if (variance > maxVariance) {
+                        maxVariance = variance;
+                        threshold = i;
+                    }
+                }
+                
+                return threshold;
+            }
+
+            /**
+             * Apply threshold to create binary image
+             */
+            applyThreshold(data, threshold) {
+                const binary = new Uint8ClampedArray(data.length);
+                
+                for (let i = 0; i < data.length; i++) {
+                    binary[i] = data[i] > threshold ? 255 : 0;
+                }
+                
+                return binary;
+            }
+
+            /**
+             * Find crack regions using connected component analysis
+             */
+            async findCrackRegions(processedData) {
+                const { binary, width, height } = processedData;
+                const visited = new Array(width * height).fill(false);
+                const regions = [];
+                
+                for (let y = 0; y < height; y++) {
+                    for (let x = 0; x < width; x++) {
+                        const idx = y * width + x;
+                        
+                        if (binary[idx] === 255 && !visited[idx]) {
+                            const region = this.floodFill(binary, visited, x, y, width, height);
+                            
+                            // Filter small regions (noise)
+                            if (region.pixels.length > 50) {
+                                regions.push(region);
+                            }
+                        }
+                    }
+                }
+                
+                // Sort regions by size
+                regions.sort((a, b) => b.pixels.length - a.pixels.length);
+                
+                // Return top regions (likely cracks)
+                return regions.slice(0, 10);
+            }
+
+            /**
+             * Flood fill algorithm for connected components
+             */
+            floodFill(binary, visited, startX, startY, width, height) {
+                const stack = [[startX, startY]];
+                const pixels = [];
+                let minX = startX, maxX = startX;
+                let minY = startY, maxY = startY;
+                
+                while (stack.length > 0) {
+                    const [x, y] = stack.pop();
+                    const idx = y * width + x;
+                    
+                    if (x < 0 || x >= width || y < 0 || y >= height) continue;
+                    if (visited[idx] || binary[idx] !== 255) continue;
+                    
+                    visited[idx] = true;
+                    pixels.push([x, y]);
+                    
+                    minX = Math.min(minX, x);
+                    maxX = Math.max(maxX, x);
+                    minY = Math.min(minY, y);
+                    maxY = Math.max(maxY, y);
+                    
+                    // 8-connected neighbors
+                    stack.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+                    stack.push([x + 1, y + 1], [x - 1, y - 1], [x + 1, y - 1], [x - 1, y + 1]);
+                }
+                
+                return {
+                    pixels: pixels,
+                    bounds: { minX, maxX, minY, maxY }
+                };
+            }
+
+            /**
+             * Measure crack properties
+             */
+            async measureCracks(crackRegions, imageWidth, imageHeight) {
+                if (crackRegions.length === 0) {
+                    return {
+                        length: 0,
+                        width: 0,
+                        area: 0,
+                        damagePercentage: 0
+                    };
+                }
+                
+                let totalPixels = 0;
+                let maxLength = 0;
+                let avgWidth = 0;
+                
+                for (const region of crackRegions) {
+                    totalPixels += region.pixels.length;
+                    
+                    // Calculate length as diagonal of bounding box
+                    const length = Math.sqrt(
+                        Math.pow(region.bounds.maxX - region.bounds.minX, 2) +
+                        Math.pow(region.bounds.maxY - region.bounds.minY, 2)
+                    );
+                    
+                    maxLength = Math.max(maxLength, length);
+                    
+                    // Estimate width as area / length
+                    if (length > 0) {
+                        const width = region.pixels.length / length;
+                        avgWidth += width;
+                    }
+                }
+                
+                avgWidth = crackRegions.length > 0 ? avgWidth / crackRegions.length : 0;
+                
+                // Convert pixels to mm
+                const lengthMM = maxLength * this.pixelToMM * this.calibrationFactor;
+                const widthMM = avgWidth * this.pixelToMM * this.calibrationFactor;
+                
+                // Calculate damage percentage
+                const totalImagePixels = imageWidth * imageHeight;
+                const damagePercentage = (totalPixels / totalImagePixels) * 100;
+                
+                return {
+                    length: lengthMM,
+                    width: widthMM,
+                    area: totalPixels,
+                    damagePercentage: damagePercentage,
+                    regionCount: crackRegions.length
+                };
+            }
+
+            /**
+             * Draw detection results on canvas
+             */
+            async drawDetections(imageElement, crackRegions) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = imageElement.width;
+                canvas.height = imageElement.height;
+                
+                ctx.drawImage(imageElement, 0, 0);
+                
+                // Draw crack regions
+                ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
+                ctx.lineWidth = 2;
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                
+                for (const region of crackRegions) {
+                    const { minX, maxX, minY, maxY } = region.bounds;
+                    
+                    // Draw bounding box
+                    ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
+                    
+                    // Highlight crack pixels
+                    for (const [x, y] of region.pixels) {
+                        ctx.fillRect(x, y, 1, 1);
+                    }
+                }
+                
+                return canvas;
+            }
+
+            /**
+             * Set calibration factor (if reference object is available)
+             */
+            setCalibration(referencePixels, referenceMM) {
+                this.calibrationFactor = referenceMM / (referencePixels * this.pixelToMM);
+            }
+        }
+
+        // Initialize detector
+        const detector = new CrackDetector();
+
+        // Global state
+        let currentImage = null;
+        let analysisResults = null;
+
+        // Standards database
+        const STANDARDS = {
+            IS456: {
+                name: "IS 456:2000",
+                description: "Reinforced Concrete Structures",
+                limits: {
+                    mild: 0.3,
+                    moderate: 0.2,
+                    severe: 0.1
+                }
+            },
+            ACI224: {
+                name: "ACI 224",
+                description: "Control of Cracking in Concrete Structures",
+                limits: {
+                    dry: 0.41,
+                    humid: 0.33,
+                    wetCycle: 0.18,
+                    seawater: 0.15
+                }
+            },
+            Eurocode: {
+                name: "Eurocode 2",
+                description: "Design of Concrete Structures",
+                limits: {
+                    mild: 0.4,
+                    moderate: 0.3,
+                    severe: 0.2
+                }
+            }
+        };
+
+        // Event Listeners
+        document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
+        /**
+         * Handle image upload
+         */
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            
+            if (!file) return;
+            
+            // Validate file
+            if (!file.type.match('image.*')) {
+                alert('Please upload a valid image file (JPG, PNG)');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+            
+            // Display file name
+            document.getElementById('fileName').textContent = `Selected: ${file.name}`;
+            
+            // Read and display image
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                
+                img.onload = function() {
+                    currentImage = img;
+                    displayImage(img);
+                    startAnalysis(img);
+                };
+                
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        /**
+         * Display uploaded image
+         */
+        function displayImage(img) {
+            document.getElementById('uploadedImage').src = img.src;
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('analysisSection').style.display = 'block';
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        /**
+         * Start crack analysis
+         */
+        async function startAnalysis(img) {
+            try {
+                // Show loading
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                document.getElementById('resultsGrid').style.display = 'none';
+                
+                // Perform detection
+                const results = await detector.detectCracks(img);
+                
+                analysisResults = results;
+                
+                // Hide loading
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                if (!results.success) {
+                    // Not a crack image
+                    showError(results.message);
+                    return;
+                }
+                
+                // Display results
+                displayResults(results);
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                showError('An error occurred during analysis. Please try again.');
+            }
+        }
+
+        /**
+         * Show error message
+         */
+        function showError(message) {
+            const statusCard = document.getElementById('statusCard');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message status-error';
+            
+            document.getElementById('resultsGrid').style.display = 'grid';
+            
+            // Hide other cards
+            document.querySelectorAll('.result-card').forEach(card => {
+                if (!card.classList.contains('status-card')) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * Display analysis results
+         */
+        function displayResults(results) {
+            // Show all cards
+            document.querySelectorAll('.result-card').forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            document.getElementById('resultsGrid').style.display = 'grid';
+            
+            const { measurements } = results;
+            
+            // Status
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = '✓ Crack detected successfully';
+            statusMessage.className = 'status-message status-success';
+            
+            // Measurements
+            document.getElementById('crackLength').textContent = `${measurements.length.toFixed(2)} mm`;
+            document.getElementById('crackWidth').textContent = `${measurements.width.toFixed(3)} mm`;
+            document.getElementById('damagePercent').textContent = `${measurements.damagePercentage.toFixed(2)}%`;
+            
+            // Severity classification
+            const severity = classifySeverity(measurements.width, measurements.damagePercentage);
+            displaySeverity(severity);
+            
+            // Standards compliance
+            displayCompliance(measurements.width);
+            
+            // Repair recommendations
+            displayRecommendations(severity, measurements.width);
+            
+            // Draw detections on canvas
+            drawDetectionOverlay(results.annotatedCanvas);
+        }
+
+        /**
+         * Classify crack severity
+         */
+        function classifySeverity(width, damagePercent) {
+            let category, description, color;
+            
+            if (width < 0.1) {
+                category = 'SAFE';
+                description = 'Hairline crack - within acceptable limits for most exposure conditions';
+                color = 'severity-safe';
+            } else if (width < 0.2) {
+                category = 'MONITORING REQUIRED';
+                description = 'Minor crack - requires periodic monitoring and potential sealing';
+                color = 'severity-monitoring';
+            } else if (width < 0.3) {
+                category = 'REPAIR RECOMMENDED';
+                description = 'Moderate crack - repair recommended to prevent further deterioration';
+                color = 'severity-repair';
+            } else {
+                category = 'CRITICAL - IMMEDIATE ACTION';
+                description = 'Severe crack - immediate professional assessment and repair required';
+                color = 'severity-critical';
+            }
+            
+            // Adjust based on damage percentage
+            if (damagePercent > 5) {
+                if (category === 'SAFE') {
+                    category = 'MONITORING REQUIRED';
+                    color = 'severity-monitoring';
+                } else if (category === 'MONITORING REQUIRED') {
+                    category = 'REPAIR RECOMMENDED';
+                    color = 'severity-repair';
+                }
+            }
+            
+            if (damagePercent > 10) {
+                category = 'CRITICAL - IMMEDIATE ACTION';
+                color = 'severity-critical';
+                description = 'Extensive cracking detected - immediate structural assessment required';
+            }
+            
+            return { category, description, color };
+        }
+
+        /**
+         * Display severity classification
+         */
+        function displaySeverity(severity) {
+            const badge = document.getElementById('severityBadge');
+            const details = document.getElementById('severityDetails');
+            
+            badge.textContent = severity.category;
+            badge.className = `severity-badge ${severity.color}`;
+            details.textContent = severity.description;
+        }
+
+        /**
+         * Display standards compliance
+         */
+        function displayCompliance(width) {
+            const container = document.getElementById('complianceDetails');
+            container.innerHTML = '';
+            
+            // IS 456:2000
+            const is456 = createComplianceItem(
+                'IS 456:2000 - Reinforced Concrete',
+                width,
+                STANDARDS.IS456.limits
+            );
+            container.appendChild(is456);
+            
+            // ACI 224
+            const aci224 = createComplianceItem(
+                'ACI 224 - Crack Control',
+                width,
+                STANDARDS.ACI224.limits
+            );
+            container.appendChild(aci224);
+            
+            // Eurocode
+            const eurocode = createComplianceItem(
+                'Eurocode 2 - Concrete Structures',
+                width,
+                STANDARDS.Eurocode.limits
+            );
+            container.appendChild(eurocode);
+        }
+
+        /**
+         * Create compliance item element
+         */
+        function createComplianceItem(title, actualWidth, limits) {
+            const div = document.createElement('div');
+            div.className = 'compliance-item';
+            
+            let html = `<strong>${title}</strong><br>`;
+            
+            for (const [condition, limit] of Object.entries(limits)) {
+                const status = actualWidth <= limit ? '✓ Pass' : '✗ Exceeds';
+                const statusColor = actualWidth <= limit ? '#10b981' : '#ef4444';
+                
+                html += `<div style="margin-top: 5px;">
+                    ${condition.charAt(0).toUpperCase() + condition.slice(1)}: 
+                    <span style="color: ${statusColor}; font-weight: 600;">${status}</span>
+                    (Limit: ${limit} mm)
+                </div>`;
+            }
+            
+            div.innerHTML = html;
+            return div;
+        }
+
+        /**
+         * Display repair recommendations
+         */
+        function displayRecommendations(severity, width) {
+            const container = document.getElementById('recommendations');
+            container.innerHTML = '';
+            
+            let recommendations = [];
+            
+            if (width < 0.1) {
+                recommendations = [
+                    'Monitor crack periodically for any growth',
+                    'Apply penetrating sealer if in exposed conditions',
+                    'Document crack with photos and measurements',
+                    'No immediate repair required for structural integrity'
+                ];
+            } else if (width < 0.2) {
+                recommendations = [
+                    'Clean crack area thoroughly',
+                    'Apply flexible epoxy injection for fine cracks',
+                    'Use polyurethane sealant for surface sealing',
+                    'Apply waterproofing coating if exposed to moisture',
+                    'Monitor for further propagation every 3 months'
+                ];
+            } else if (width < 0.3) {
+                recommendations = [
+                    'Professional structural assessment recommended',
+                    'Epoxy injection or routing and sealing required',
+                    'Apply polymer-modified repair mortar',
+                    'Install anti-corrosion treatment for exposed reinforcement',
+                    'Consider carbon fiber reinforcement for structural cracks',
+                    'Implement proper drainage to prevent water ingress'
+                ];
+            } else {
+                recommendations = [
+                    '⚠️ IMMEDIATE professional structural engineer consultation required',
+                    'Comprehensive structural assessment and load testing',
+                    'Deep epoxy/polyurethane injection grouting',
+                    'FRP (Fiber Reinforced Polymer) wrapping or steel plate bonding',
+                    'Shotcrete or concrete jacketing for severe cases',
+                    'Corrosion protection treatment for reinforcement',
+                    'Consider partial or complete structural element replacement',
+                    'Implement continuous structural health monitoring'
+                ];
+            }
+            
+            const ul = document.createElement('ul');
+            ul.className = 'recommendations-list';
+            
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                ul.appendChild(li);
+            });
+            
+            container.appendChild(ul);
+        }
+
+        /**
+         * Draw detection overlay on canvas
+         */
+        function drawDetectionOverlay(annotatedCanvas) {
+            const canvas = document.getElementById('detectionCanvas');
+            const img = document.getElementById('uploadedImage');
+            
+            canvas.width = img.width;
+            canvas.height = img.height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (annotatedCanvas) {
+                // Draw the annotated version
+                ctx.drawImage(annotatedCanvas, 0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        /**
+         * Reset system for new upload
+         */
+        function resetSystem() {
+            currentImage = null;
+            analysisResults = null;
+            
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('analysisSection').style.display = 'none';
+            document.getElementById('imageInput').value = '';
+            document.getElementById('fileName').textContent = '';
+            
+            // Clear canvas
+            const canvas = document.getElementById('detectionCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        /**
+         * Export report as PDF
+         */
+        function exportReport() {
+            if (!analysisResults || !analysisResults.success) {
+                alert('No analysis results to export');
+                return;
+            }
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Title
+                doc.setFontSize(18);
+                doc.setFont(undefined, 'bold');
+                doc.text('Crack Detection Analysis Report', 105, 20, { align: 'center' });
+                
+                // Copyright
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.text('© 2025 Pranjali Patil - AI Crack Detection System', 105, 28, { align: 'center' });
+                
+                doc.line(20, 32, 190, 32);
+                
+                let yPos = 40;
+                
+                // Date
+                doc.setFontSize(11);
+                doc.text(`Report Generated: ${new Date().toLocaleString()}`, 20, yPos);
+                yPos += 10;
+                
+                // Measurements
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(14);
+                doc.text('Measurements:', 20, yPos);
+                yPos += 8;
+                
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(11);
+                const measurements = analysisResults.measurements;
+                doc.text(`Crack Length: ${measurements.length.toFixed(2)} mm`, 25, yPos);
+                yPos += 7;
+                doc.text(`Crack Width: ${measurements.width.toFixed(3)} mm`, 25, yPos);
+                yPos += 7;
+                doc.text(`Damage Percentage: ${measurements.damagePercentage.toFixed(2)}%`, 25, yPos);
+                yPos += 12;
+                
+                // Severity
+                const severity = classifySeverity(measurements.width, measurements.damagePercentage);
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(14);
+                doc.text('Severity Classification:', 20, yPos);
+                yPos += 8;
+                
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(12);
+                doc.setTextColor(severity.category.includes('CRITICAL') ? 255 : 0, 0, 0);
+                doc.text(severity.category, 25, yPos);
+                doc.setTextColor(0, 0, 0);
+                yPos += 7;
+                
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(10);
+                const splitDescription = doc.splitTextToSize(severity.description, 160);
+                doc.text(splitDescription, 25, yPos);
+                yPos += (splitDescription.length * 5) + 10;
+                
+                // Recommendations
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(14);
+                doc.text('Repair Recommendations:', 20, yPos);
+                yPos += 8;
+                
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(10);
+                
+                // Get recommendations
+                let recommendations = [];
+                if (measurements.width < 0.1) {
+                    recommendations = [
+                        'Monitor crack periodically',
+                        'Apply penetrating sealer if needed',
+                        'Document with photos'
+                    ];
+                } else if (measurements.width < 0.2) {
+                    recommendations = [
+                        'Clean crack area',
+                        'Apply epoxy injection',
+                        'Use polyurethane sealant',
+                        'Monitor every 3 months'
+                    ];
+                } else if (measurements.width < 0.3) {
+                    recommendations = [
+                        'Professional assessment needed',
+                        'Epoxy injection required',
+                        'Apply repair mortar',
+                        'Anti-corrosion treatment'
+                    ];
+                } else {
+                    recommendations = [
+                        'IMMEDIATE engineer consultation',
+                        'Structural assessment required',
+                        'Deep grouting needed',
+                        'Consider FRP wrapping',
+                        'Continuous monitoring'
+                    ];
+                }
+                
+                recommendations.forEach((rec, index) => {
+                    if (yPos > 270) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    doc.text(`${index + 1}. ${rec}`, 25, yPos);
+                    yPos += 6;
+                });
+                
+                // Footer
+                yPos = 280;
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.text('Disclaimer: This is an AI-based preliminary assessment. Professional structural audit recommended.', 105, yPos, { align: 'center' });
+                doc.text('Developed by Pranjali Patil | B.Tech Civil & Infrastructure Engineering', 105, yPos + 5, { align: 'center' });
+                
+                // Save
+                doc.save(`Crack_Analysis_Report_${new Date().getTime()}.pdf`);
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                alert('Error generating PDF. Please ensure you have an internet connection.');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('AI Crack Detection System Initialized');
+            console.log('© 2025 Pranjali Patil');
+        });
+    </script>
+</body>
+</html>
